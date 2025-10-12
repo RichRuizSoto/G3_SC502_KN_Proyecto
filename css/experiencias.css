@@ -1,45 +1,99 @@
-.experiencias {
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #e0f7f1, #fafafa);
+  color: #333;
+}
+
+main {
   padding: 2rem;
+}
+
+.experiencias {
+  min-height: 80vh;
+}
+
+.experiencias-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.experiencias-header h1 {
+  font-size: 2rem;
+  color: #007a5c;
+  margin-bottom: 0.5rem;
+}
+
+.experiencias-header p {
+  font-size: 1rem;
+  color: #555;
 }
 
 .experiencias-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin-top: 2rem;
 }
 
 .card {
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .card img {
   width: 100%;
-  display: block;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1rem 1.2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .card h2 {
-  margin: 1rem;
+  margin: 0 0 0.5rem;
+  color: #007a5c;
+  font-size: 1.2rem;
 }
 
 .card p {
-  margin: 0 1rem 1rem;
+  margin: 0 0 1rem;
+  flex: 1;
+  color: #555;
+  font-size: 0.95rem;
 }
 
 .card button {
-  margin: 0 1rem 1.5rem;
+  align-self: flex-start;
   background: #007a5c;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.card button:hover {
+  background: #005a43;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
 }

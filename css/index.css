@@ -1,12 +1,12 @@
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background-color: #fafafa;
+  background: linear-gradient(135deg, #e0f7f1, #fafafa);
   color: #333;
 }
 
-main {
-  padding: 2rem;
+a {
+  text-decoration: none;
 }
 
 h1,
@@ -15,6 +15,99 @@ h3 {
   font-weight: 600;
 }
 
-a {
-  text-decoration: none;
+.home-container {
+  padding: 2rem;
+  min-height: 80vh;
+
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  color: #007a5c;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+.feed h2 {
+  margin-bottom: 1.5rem;
+  color: #007a5c;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.feed-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feed-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feed-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-info h3 {
+  margin: 0 0 0.5rem;
+  color: #007a5c;
+  font-size: 1.2rem;
+}
+
+.card-info p {
+  margin: 0 0 1rem;
+  color: #555;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.card-info button {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.card-info button:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 1rem;
+  }
 }
