@@ -1,0 +1,156 @@
+/* --- CSS variables assumed to be loaded via global.css --- 
+:root {
+  --primary-color: #007a5c; 
+  --secondary-color: #4CAF50; 
+  --text-dark: #2c3e50;
+  --text-light: #5a7d9b;
+}
+*/
+
+.publish-container {
+    padding: 2rem 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: 80vh;
+}
+
+.publish-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.publish-header h2 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.publish-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* --- Form Structure & Fieldsets --- */
+.publish-form {
+    background: white;
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-section {
+    border: 1px solid #e0e0e0;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+}
+
+.form-section legend {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 0 10px;
+}
+
+/* Base group styling */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    /* 💥 FIX: Apply Poppins font to the actual typed text */
+    font-family: 'Poppins', sans-serif;
+    
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box; 
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.help-text {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 0.2rem;
+}
+
+/* Two-column layout for the logistical details */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- Placeholder Consistency (The Fix) --- */
+
+/* Selectors for placeholders across all major browsers */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 400;                  
+    color: #999;                       
+    opacity: 1;                        
+}
+/* For older Microsoft browsers */
+.form-group input:-ms-input-placeholder,
+.form-group textarea:-ms-input-placeholder {
+    font-family: 'Poppins', sans-serif;
+    color: #999;
+}
+
+
+/* Submit Button */
+.submit-button {
+    width: 100%;
+    background: var(--secondary-color); /* Green color */
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+    background: var(--primary-color); /* Darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Media Queries --- */
+@media (max-width: 768px) {
+    .publish-form {
+        padding: 1.5rem 1rem;
+    }
+    .form-section {
+        padding: 1rem;
+    }
+    .publish-header h2 {
+        font-size: 1.8rem;
+    }
+}
