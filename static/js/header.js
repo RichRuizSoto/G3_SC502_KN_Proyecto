@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("header.html")
+  fetch("/header.html")
     .then((response) => {
       if (!response.ok) throw new Error("Error al cargar el header");
       return response.text();
@@ -11,13 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const main = document.querySelector("main");
 
       if (header && main) {
-        function ajustarMain() {
-          main.style.paddingTop = header.offsetHeight + "px";
-        }
+        const ajustarMain = () => main.style.paddingTop = header.offsetHeight + "px";
 
         ajustarMain();
         window.addEventListener("resize", ajustarMain);
-
         window.addEventListener("scroll", ajustarMain);
       }
     })

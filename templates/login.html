@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login / Registro</title>
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="/static/css/login.css" />
   </head>
   <body>
-    <script src="js/header.js"></script>
+    <script src="/static/js/header.js"></script>
 
     <main class="auth-container">
       <div class="auth-box">
@@ -26,16 +26,18 @@
 
         <form id="register" class="auth-form">
           <h2>Regístrate</h2>
-          <input type="text" placeholder="Nombre completo" required />
-          <input type="email" placeholder="Correo electrónico" required />
-          <input type="password" placeholder="Contraseña" required />
-          <input type="password" placeholder="Confirmar contraseña" required />
+
+          <input id="reg_nombre" type="text" placeholder="Nombre completo" required />
+          <input id="reg_correo" type="email" placeholder="Correo electrónico" required />
+          <input id="reg_pass" type="password" placeholder="Contraseña" required />
+          <input id="reg_pass2" type="password" placeholder="Confirmar contraseña" required />
+
           <button type="submit">Crear cuenta</button>
         </form>
       </div>
     </main>
 
-    <script src="js/footer.js"></script>
+    <script src="/static/js/footer.js"></script>
 
     <script>
       const tabs = document.querySelectorAll(".tab-btn");
@@ -50,5 +52,50 @@
         });
       });
     </script>
+<script>
+  document.getElementById("register").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const nombre = this.querySelector("input[placeholder='Nombre completo']").value;
+    const correo = this.querySelector("input[placeholder='Correo electrónico']").value;
+    const contrasena = this.querySelector("input[placeholder='Contraseña']").value;
+    const confirmar = this.querySelector("input[placeholder='Confirmar contraseña']").value;
+
+    if (contrasena !== confirmar) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
+    const data = {
+      nombre: nombre,
+      correo: correo,
+      contrasena: contrasena
+    };
+
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Cuenta creada con éxito");
+        window.location.href = "/login"; // o donde quieras redirigir
+      } else {
+        alert("Error: " + result.error);
+      }
+    } catch (error) {
+      alert("Error de conexión con el servidor");
+      console.error(error);
+    }
+  });
+</script>
+
+
   </body>
 </html>
