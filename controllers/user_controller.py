@@ -8,9 +8,9 @@ def register_user():
     nuevo_usuario = Usuario(
         nombre=data["nombre"],
         correo=data["correo"],
-        contrasena=data["contrasena"], 
-        id_tipo_usuario=data["id_tipo_usuario"],
-        telefono=data["telefono"]
+        contrasena=data["contrasena"],
+        id_tipo_usuario=data.get("id_tipo_usuario", 1),  # default: usuario normal
+        telefono=data.get("telefono", None)
     )
 
     db.session.add(nuevo_usuario)
