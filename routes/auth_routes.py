@@ -4,4 +4,4 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/')
 def home():
-    return render_template("login.html")  # Muestra el login
+    return render_template("index.html")  # Muestra el login
