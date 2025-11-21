@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="/static/css/header.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
 
 <header class="main-header">
   <nav class="navbar">
     <div class="logo">
-      <a href="index.html">
+      <a href="{{ url_for('home') }}">
         <span class="logo-text">Turismo 🌿</span>
       </a>
     </div>
@@ -20,7 +20,7 @@
 
     <ul class="nav-icons">
       <li>
-        <a href="index.html" title="Inicio">
+        <a href="{{ url_for('home') }}" title="Inicio">
           <img
             src="https://img.icons8.com/fluency-systems-regular/24/000000/home.png"
             alt="Inicio"
@@ -29,7 +29,7 @@
         </a>
       </li>
       <li>
-        <a href="publicar.html" title="Publicar Experiencia">
+        <a href="{{ url_for('publicar') }}" title="Publicar Experiencia">
           <img
             src="https://img.icons8.com/fluency-systems-regular/24/000000/plus-2-math.png"
             alt="Publicar"
@@ -38,7 +38,7 @@
         </a>
       </li>
       <li>
-        <a href="experiencias.html" title="Explorar">
+        <a href="{{ url_for('experiencias') }}" title="Explorar">
           <img
             src="https://img.icons8.com/fluency-systems-regular/24/000000/map.png"
             alt="Explorar"
@@ -47,7 +47,7 @@
         </a>
       </li>
       <li>
-        <a href="login.html" title="Perfil">
+        <a href="{{ url_for('login') }}" title="Perfil">
           <img
             src="https://img.icons8.com/fluency-systems-regular/24/000000/user-male-circle.png"
             alt="Perfil"
