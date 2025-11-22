@@ -26,14 +26,36 @@
 
       <section class="profile-details">
         <h2>Detalles Completos</h2>
+
         <div class="detail-group">
           <label>ID de Usuario:</label>
           <p>{{ usuario.id_usuario }}</p>
         </div>
-        <div class="detail-group">
+
+        <div class="detail-group phone-group">
           <label>Teléfono:</label>
-          <p>{{ usuario.telefono }}</p>
+
+          <div class="phone-display">
+            <button class="edit-btn" onclick="mostrarFormularioTelefono()">Editar</button>
+            <span class="phone-value">{{ usuario.telefono }}</span>
+          </div>
         </div>
+
+        <div id="editar-telefono" style="display:none; margin-top: 10px;">
+          <form method="POST" action="/perfil/editar-telefono">
+            <input 
+              type="text" 
+              name="telefono" 
+              value="{{ usuario.telefono }}"
+              required
+              maxlength="20"
+              class="phone-input"
+            >
+            <button type="submit" class="save-btn">Guardar</button>
+            <button type="button" class="cancel-btn" onclick="ocultarFormularioTelefono()">Cancelar</button>
+          </form>
+        </div>
+
         <div class="detail-group">
           <label>Miembro desde:</label>
           <p>{{ usuario.fecha_creacion.strftime('%d-%m-%Y') }}</p>
@@ -43,5 +65,6 @@
 
     <div id="footer-placeholder"></div>
     <script src="/static/js/footer.js"></script>
+    <script src="/static/js/perfil.js"></script>
   </body>
 </html>

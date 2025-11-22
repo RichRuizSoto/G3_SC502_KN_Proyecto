@@ -3,6 +3,8 @@ from routes.auth_routes import auth_bp
 from routes.user_routes import user_bp
 from flask import session, redirect, url_for
 from models.usuario import Usuario
+from flask import request
+from config.database import db
 
 def register_routes(app):
     print("[✔] Registrando rutas...")
@@ -46,6 +48,12 @@ def register_routes(app):
     def experiencias():
         return render_template('experiencias.html')
 
+    @app.route('/publicar')
+    def publicar():
+        return render_template('publicar.html')
+
+    print("[✔] Rutas registradas exitosamente")
+
     @app.route('/perfil')
     def perfil():
         user_id = session.get("user_id")
@@ -57,8 +65,18 @@ def register_routes(app):
 
         return render_template("perfil.html", usuario=usuario)
 
-    @app.route('/publicar')
-    def publicar():
-        return render_template('publicar.html')
+    @app.post("/perfil/editar-telefono")
+    def editar_telefono():
+        user_id = session.get("user_id")
 
-    print("[✔] Rutas registradas exitosamente")
+        if not user_id:
+            return redirect(url_for("auth.home"))
+
+        usuario = Usuario.query.get(user_id)
+        nuevo_telefono = request.form.get("telefono")
+
+        if nuevo_telefono:
+            usuario.telefono = nuevo_telefono
+            db.session.commit()
+
+        return redirect(url_for("perfil"))

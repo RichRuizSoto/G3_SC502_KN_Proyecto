@@ -173,3 +173,84 @@
     margin-top: 0.2rem;
   }
 }
+
+/* --- Estilos mejorados para el grupo de teléfono --- */
+
+.phone-group {
+  align-items: center;
+}
+
+.phone-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.phone-value {
+  font-size: 1rem;
+  color: #444;
+  padding: 6px 12px;
+  background: #f4f7f8;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.edit-btn {
+  background: #007a5c;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.edit-btn:hover {
+  background: #005f47;
+  transform: translateY(-1px);
+}
+
+/* Estilo del formulario de edición */
+#editar-telefono {
+  margin-top: 15px;
+  padding: 12px;
+  background: #f9fdfc;
+  border: 1px solid #dceee9;
+  border-radius: 10px;
+}
+
+.phone-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #aacfc4;
+  font-size: 1rem;
+  width: 180px;
+}
+
+.save-btn {
+  background: #00a35c;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.save-btn:hover {
+  background: #00894d;
+}
+
+.cancel-btn {
+  background: #999;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #777;
+}
