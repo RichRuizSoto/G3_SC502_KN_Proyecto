@@ -9,7 +9,7 @@ def register_user():
         nombre=data["nombre"],
         correo=data["correo"],
         contrasena=data["contrasena"],
-        id_tipo_usuario=data.get("id_tipo_usuario", 1),  # default: usuario normal
+        id_tipo_usuario=data.get("id_tipo_usuario", 1),
         telefono=data.get("telefono", None)
     )
 

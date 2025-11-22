@@ -1,4 +1,3 @@
-// Manejo de tabs
 const tabs = document.querySelectorAll(".tab-btn");
 const forms = document.querySelectorAll(".auth-form");
 
@@ -11,28 +10,23 @@ tabs.forEach((tab) => {
   });
 });
 
-// Registro de usuario
-document.getElementById("register").addEventListener("submit", async function (e) {
+document.getElementById("login").addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const nombre = this.querySelector("input[placeholder='Nombre completo']").value;
-  const correo = this.querySelector("input[placeholder='Correo electrónico']").value;
-  const contrasena = this.querySelector("input[placeholder='Contraseña']").value;
-  const confirmar = this.querySelector("input[placeholder='Confirmar contraseña']").value;
-
-  if (contrasena !== confirmar) {
-    alert("Las contraseñas no coinciden");
-    return;
-  }
+  const correo = this.querySelector(
+    "input[placeholder='Correo electrónico']"
+  ).value;
+  const contrasena = this.querySelector(
+    "input[placeholder='Contraseña']"
+  ).value;
 
   const data = {
-    nombre: nombre,
     correo: correo,
-    contrasena: contrasena
+    contrasena: contrasena,
   };
 
   try {
-    const response = await fetch("/api/register", {
+    const response = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,8 +37,8 @@ document.getElementById("register").addEventListener("submit", async function (e
     const result = await response.json();
 
     if (response.ok) {
-      alert("Cuenta creada con éxito");
-      window.location.href = "/login"; // o donde quieras redirigir
+      alert("Inicio de sesión exitoso");
+      window.location.href = "/inicial";
     } else {
       alert("Error: " + result.error);
     }
@@ -53,3 +47,47 @@ document.getElementById("register").addEventListener("submit", async function (e
     console.error(error);
   }
 });
+
+document
+  .getElementById("register")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("reg_nombre").value;
+    const correo = document.getElementById("reg_correo").value;
+    const contrasena = document.getElementById("reg_pass").value;
+    const confirmar = document.getElementById("reg_pass2").value;
+
+    if (contrasena !== confirmar) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
+    const data = {
+      nombre: nombre,
+      correo: correo,
+      contrasena: contrasena,
+    };
+
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Cuenta creada con éxito");
+        window.location.href = "/login";
+      } else {
+        alert("Error: " + result.error);
+      }
+    } catch (error) {
+      alert("Error de conexión con el servidor");
+      console.error(error);
+    }
+  });
