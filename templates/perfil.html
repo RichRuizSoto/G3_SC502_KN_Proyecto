@@ -1,48 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil - Turismo Comunitario</title>
-    <link rel="stylesheet" href="/static/css/index.css" />
-    <link rel="stylesheet" href="/static/css/perfil.css" />
-    </head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/perfil.css">
+  </head>
   <body>
     <div id="header-placeholder"></div>
     <script src="/static/js/header.js"></script>
 
     <main class="profile-container">
-      <hr class="profile-separator" />
+      <hr class="profile-separator">
+
       <section class="profile-header">
         <div class="profile-info-summary">
-          <h1 class="user-name">Nombre del Usuario</h1>
-          <p class="user-email">correo@ejemplo.com</p>
-          <p class="user-type">Tipo de Usuario: **Comunidad Local**</p>
-          <button class="edit-profile-btn">
-            Editar Perfil
-          </button>
+          <h1 class="user-name">{{ usuario.nombre }}</h1>
+          <p class="user-email">{{ usuario.correo }}</p>
         </div>
       </section>
 
-      <hr class="profile-separator" />
+      <hr class="profile-separator">
 
       <section class="profile-details">
         <h2>Detalles Completos</h2>
         <div class="detail-group">
           <label>ID de Usuario:</label>
-          <p>12345</p>
+          <p>{{ usuario.id_usuario }}</p>
         </div>
         <div class="detail-group">
           <label>Teléfono:</label>
-          <p>+506 8888-9999</p>
+          <p>{{ usuario.telefono }}</p>
         </div>
         <div class="detail-group">
           <label>Miembro desde:</label>
-          <p>15 de Noviembre de 2024</p>
+          <p>{{ usuario.fecha_creacion.strftime('%d-%m-%Y') }}</p>
         </div>
-        </section>
-
-      
+      </section>
     </main>
 
     <div id="footer-placeholder"></div>

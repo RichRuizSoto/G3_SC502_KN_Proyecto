@@ -2,6 +2,9 @@ from flask import request, jsonify
 from config.database import db
 from models.usuario import Usuario
 
+def obtener_usuario_por_id(id_usuario):
+    return Usuario.query.filter_by(id_usuario=id_usuario).first()
+
 def register_user():
     data = request.json
 

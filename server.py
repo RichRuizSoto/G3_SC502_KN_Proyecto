@@ -5,8 +5,7 @@ import os
 
 def create_app():
     app = Flask(__name__)
-
-    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "clave_super_secreta_123")
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
     init_db(app)
     register_routes(app)

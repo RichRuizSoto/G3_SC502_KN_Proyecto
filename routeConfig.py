@@ -1,6 +1,8 @@
 from flask import render_template
 from routes.auth_routes import auth_bp
 from routes.user_routes import user_bp
+from flask import session, redirect, url_for
+from models.usuario import Usuario
 
 def register_routes(app):
     print("[✔] Registrando rutas...")
@@ -46,7 +48,14 @@ def register_routes(app):
 
     @app.route('/perfil')
     def perfil():
-        return render_template('perfil.html')
+        user_id = session.get("user_id")
+
+        if not user_id:
+            return redirect(url_for("auth.home"))
+
+        usuario = Usuario.query.get(user_id)
+
+        return render_template("perfil.html", usuario=usuario)
 
     @app.route('/publicar')
     def publicar():
