@@ -20,13 +20,13 @@ def register_routes(app):
     def login():
         return render_template('login.html')
 
-    @app.route('/index')
+    @app.route('/inicial')
     def index():
-        return render_template('index.html')
+        return render_template('home.html')
 
     @app.route('/')
     def home():
-        return render_template('index.html')
+        return render_template('login.html')
 
     @app.route('/dashboard')
     def dashboard():
