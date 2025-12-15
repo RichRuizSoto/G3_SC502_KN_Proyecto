@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis Reservas</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/css/dashboard.css" />
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+    <script src="/static/js/header.js"></script>
+
+    <main class="dashboard-container">
+        <aside class="sidebar">
+            <h2>Panel Comunidad</h2>
+            <nav>
+                <ul>
+                    <li><a href="/dashboard/mis-experiencias">Mis Experiencias</a></li>
+                    <li><a href="/publicar">Crear Experiencia</a></li>
+                    <li><a href="/dashboard/mis-reservas">Reservas</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="dashboard-content">
+            <header>
+                <h1>Mis Reservas</h1>
+                <p>Reservas que tú has realizado.</p>
+            </header>
+
+            {% if mis_reservas and mis_reservas|length > 0 %}
+            <table
+                style="width:100%; border-collapse: collapse; background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+                <thead style="background:#e0f7f1;">
+                    <tr>
+                        <th style="padding:12px; text-align:left;">Experiencia</th>
+                        <th style="padding:12px; text-align:left;">Estado</th>
+                        <th style="padding:12px; text-align:left;">Personas</th>
+                        <th style="padding:12px; text-align:left;">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r, e, est in mis_reservas %}
+                    <tr style="border-top:1px solid #eee;">
+                        <td style="padding:12px;">{{ e.titulo }}</td>
+                        <td style="padding:12px;">{{ est.nombre }}</td>
+                        <td style="padding:12px;">{{ r.cantidad_personas }}</td>
+                        <td style="padding:12px;">{{ r.fecha_reserva }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No tienes reservas todavía.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="/static/js/footer.js"></script>
+</body>
+
+</html>

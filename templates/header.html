@@ -8,51 +8,42 @@
       </a>
     </div>
 
-    <div class="search-bar">
-      <input type="text" placeholder="Busca experiencias únicas..." />
-      <button class="search-btn">
-        <img
-          src="https://img.icons8.com/fluency-systems-filled/20/ffffff/search.png"
-          alt="Buscar"
-        />
+    <form class="search-bar" action="/experiencias" method="GET">
+      <input type="text" name="q" placeholder="Busca experiencias únicas..." />
+      <button class="search-btn" type="submit">
+        <img src="https://img.icons8.com/fluency-systems-filled/20/ffffff/search.png" alt="Buscar" />
       </button>
-    </div>
+    </form>
 
     <ul class="nav-icons">
       <li>
         <a href="{{ url_for('index') }}" title="Publicar Experiencia">
-          <img
-            src="https://img.icons8.com/fluency-systems-regular/24/000000/home.png"
-            alt="Inicio"
-          />
+          <img src="https://img.icons8.com/fluency-systems-regular/24/000000/home.png" alt="Inicio" />
           <span class="nav-text">Inicio</span>
         </a>
       </li>
       <li>
         <a href="{{ url_for('publicar') }}" title="Publicar Experiencia">
-          <img
-            src="https://img.icons8.com/fluency-systems-regular/24/000000/plus-2-math.png"
-            alt="Publicar"
-          />
+          <img src="https://img.icons8.com/fluency-systems-regular/24/000000/plus-2-math.png" alt="Publicar" />
           <span class="nav-text">Publicar</span>
         </a>
       </li>
       <li>
         <a href="{{ url_for('experiencias') }}" title="Explorar">
-          <img
-            src="https://img.icons8.com/fluency-systems-regular/24/000000/map.png"
-            alt="Explorar"
-          />
+          <img src="https://img.icons8.com/fluency-systems-regular/24/000000/map.png" alt="Explorar" />
           <span class="nav-text">Explorar</span>
         </a>
       </li>
       <li>
         <a href="{{ url_for('perfil') }}" title="Perfil">
-          <img
-            src="https://img.icons8.com/fluency-systems-regular/24/000000/user-male-circle.png"
-            alt="Perfil"
-          />
+          <img src="https://img.icons8.com/fluency-systems-regular/24/000000/user-male-circle.png" alt="Perfil" />
           <span class="nav-text">Perfil</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ url_for('dashboard') }}" title="Dashboard">
+          <img src="https://img.icons8.com/fluency-systems-regular/24/000000/combo-chart.png" alt="Dashboard" />
+          <span class="nav-text">Dashboard</span>
         </a>
       </li>
     </ul>
