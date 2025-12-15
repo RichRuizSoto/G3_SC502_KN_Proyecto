@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Experiencias - Turismo Comunitario</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <link rel="stylesheet" href="/static/css/experiencias.css" />
-  </head>
-  <body>
-    <div id="header-placeholder"></div>
-    <script src="/static/js/header.js"></script>
 
-    <main>
-      <section class="experiencias">
-        <header class="experiencias-header">
-          <h1>Explora Nuestras Experiencias</h1>
-          <p>Conoce actividades auténticas de las comunidades rurales.</p>
-        </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiencias - Turismo Comunitario</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <link rel="stylesheet" href="/static/css/experiencias.css" />
+</head>
 
-        <div class="experiencias-grid">
-          <article class="card">
-            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1287" alt="Tour café" />
-            <div class="card-content">
-              <h2>Tour del Café</h2>
-              <p>Aprende el proceso artesanal del café en una finca local.</p>
-              <button>Ver más</button>
-            </div>
-          </article>
+<body>
+  <div id="header-placeholder"></div>
+  <script src="/static/js/header.js"></script>
 
-          <article class="card">
-            <img src="https://plus.unsplash.com/premium_photo-1673643405538-de0f82933fcb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2942" alt="Sendero natural" />
-            <div class="card-content">
-              <h2>Sendero Natural</h2>
-              <p>Explora los bosques y aprende sobre flora y fauna nativa.</p>
-              <button>Ver más</button>
-            </div>
-          </article>
+  <main>
+    <section class="experiencias">
+      <header class="experiencias-header">
+        <h1>Explora Nuestras Experiencias</h1>
+        <p>Conoce actividades auténticas de las comunidades rurales.</p>
+      </header>
 
-          <article class="card">
-            <img src="https://images.unsplash.com/photo-1722411927625-0e478acf502b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2940" alt="Artesanía local" />
-            <div class="card-content">
-              <h2>Artesanía Local</h2>
-              <p>
-                Participa en talleres y crea tu propia artesanía tradicional.
-              </p>
-              <button>Ver más</button>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
+      <div class="experiencias-grid">
+        {% if experiencias and experiencias|length > 0 %}
+        {% for e in experiencias %}
+        <article class="card">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1673643405538-de0f82933fcb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2942"
+            alt="{{ e.titulo }}" />
+          <div class="card-content">
+            <h2>{{ e.titulo }}</h2>
+            <p>{{ e.descripcion }}</p>
+            <p><strong>Ubicación:</strong> {{ e.ubicacion }}</p>
+            <p><strong>Precio:</strong> ${{ e.precio_por_persona }}</p>
+            <p><strong>Fecha:</strong> {{ e.fecha_evento }}</p>
+            <a class="btn-card" href="/experiencias/{{ e.id_experiencia }}">Ver más</a>
+          </div>
+        </article>
+        {% endfor %}
+        {% else %}
+        <p>No hay experiencias publicadas todavía.</p>
+        {% endif %}
+      </div>
 
-    <div id="footer-placeholder"></div>
-    <script src="/static/js/footer.js"></script>
-  </body>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="/static/js/footer.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("created") === "1") {
+      alert("Experiencia publicada con éxito");
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  </script>
+</body>
+
 </html>

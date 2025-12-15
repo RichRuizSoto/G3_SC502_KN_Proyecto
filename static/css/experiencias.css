@@ -76,7 +76,7 @@ main {
   font-size: 0.95rem;
 }
 
-.card button {
+.card .btn-card {
   align-self: flex-start;
   background: #007a5c;
   color: white;
@@ -85,9 +85,12 @@ main {
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
 }
 
-.card button:hover {
+.card .btn-card:hover {
   background: #005a43;
   transform: translateY(-2px);
 }
