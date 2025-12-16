@@ -26,7 +26,7 @@
           </p>
         </header>
 
-        <form action="/experiencias/{{ e.id_experiencia }}/editar" method="POST" class="publish-form">
+        <form id="editForm" class="publish-form" enctype="multipart/form-data">
 
           <!-- FIELDSET 1: INFORMACIÓN ESENCIAL -->
           <fieldset class="form-section">
@@ -35,28 +35,27 @@
             <!-- TÍTULO -->
             <div class="form-group">
               <label for="titulo">Título de la Experiencia</label>
-              <input type="text" id="titulo" name="titulo" required value="{{ e.titulo }}"/>
+              <input type="text" id="titulo" name="titulo" required />
             </div>
 
             <!-- UBICACIÓN -->
             <div class="form-group">
               <label for="ubicacion">Ubicación (Dirección o Punto de Encuentro)</label>
-              <input type="text" id="ubicacion" name="ubicacion" required value="{{ e.ubicacion }}"/>
-
+              <input type="text" id="ubicacion" name="ubicacion" required />
             </div>
 
             <!-- DESCRIPCIÓN -->
             <div class="form-group full-width">
               <label for="descripcion">Descripción Detallada</label>
-              <textarea id="descripcion" name="descripcion" rows="6" required>{{ e.descripcion }}</textarea>
+              <textarea id="descripcion" name="descripcion" rows="6" required></textarea>
             </div>
             
-            <!-- IMAGEN (We add a note here since files cannot be pre-filled) -->
+            <!-- IMAGEN -->
             <div class="form-group full-width">
               <label for="imagen">Imagen Principal</label>
               <input type="file" id="imagen" name="imagen" accept="image/*" />
               <p class="help-text">
-                El campo de imagen no se puede prellenar. Solo sube un nuevo archivo si deseas reemplazar la imagen actual.
+                Solo sube un nuevo archivo si deseas reemplazar la imagen actual.
               </p>
             </div>
 
@@ -71,34 +70,128 @@
               <!-- DURACIÓN -->
               <div class="form-group">
                 <label for="duracion">Duración Estimada (Horas)</label>
-                <input type="number" id="duracion" name="duracion" min="0.5" step="0.5" required value="{{ e.duracion_horas }}"/>
+                <input type="number" id="duracion" name="duracion" min="0.5" step="0.5" required />
               </div>
 
               <!-- CAPACIDAD -->
               <div class="form-group">
                 <label for="capacidad">Capacidad Máxima</label>
-                <input type="number" id="capacidad" name="capacidad" min="1" required value="{{ e.capacidad_maxima }}"/>
+                <input type="number" id="capacidad" name="capacidad" min="1" required />
               </div>
 
               <!-- PRECIO -->
               <div class="form-group">
                 <label for="precio">Precio por Persona (USD)</label>
-                <input type="number" id="precio" name="precio" min="0" step="0.01" required value="{{ e.precio_por_persona }}"/>
+                <input type="number" id="precio" name="precio" min="0" step="0.01" required />
               </div>
 
               <!-- FECHA DEL EVENTO -->
               <div class="form-group">
                 <label for="fecha_evento">Fecha y Hora</label>
-                <input type="datetime-local" id="fecha_evento" name="fecha_evento" required
-                value="{{ e.fecha_evento.strftime('%Y-%m-%dT%H:%M') if e.fecha_evento else '' }}"/>
+                <input type="datetime-local" id="fecha_evento" name="fecha_evento" required />
               </div>
             </div>
           </fieldset>
 
-          <button type="submit" class="submit-button">
-            Guardar Cambios y Actualizar ✅
-          </button>
+          <div class="form-buttons" style="display: flex; gap: 10px;">
+            <button type="submit" class="submit-button" style="flex: 1;">
+              Guardar Cambios y Actualizar ✅
+            </button>
+            <button type="button" id="deleteBtn" class="submit-button" style="flex: 1; background-color: #dc3545;">
+              Eliminar Experiencia 🗑️
+            </button>
+          </div>
         </form>
+
+        <script>
+          // Get experience ID from URL parameter
+          const params = new URLSearchParams(window.location.search);
+          const experienciaId = params.get('id');
+
+          if (!experienciaId) {
+            alert('ID de experiencia no proporcionado');
+            window.location.href = '/experiencias';
+          }
+
+          // Load experience data on page load
+          async function cargarExperiencia() {
+            try {
+              const response = await fetch(`/api/experiencias/${experienciaId}`);
+              const data = await response.json();
+
+              if (response.ok) {
+                document.getElementById('titulo').value = data.titulo;
+                document.getElementById('ubicacion').value = data.ubicacion;
+                document.getElementById('descripcion').value = data.descripcion;
+                document.getElementById('duracion').value = data.duracion_horas;
+                document.getElementById('capacidad').value = data.capacidad_maxima;
+                document.getElementById('precio').value = data.precio_por_persona;
+                
+                const fechaObj = new Date(data.fecha_evento);
+                const fechaFormato = fechaObj.toISOString().slice(0, 16);
+                document.getElementById('fecha_evento').value = fechaFormato;
+              } else {
+                alert('No se pudo cargar la experiencia: ' + data.error);
+                window.location.href = '/experiencias';
+              }
+            } catch (error) {
+              alert('Error al cargar: ' + error.message);
+              window.location.href = '/experiencias';
+            }
+          }
+
+          // Handle form submission (update)
+          document.getElementById('editForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(document.getElementById('editForm'));
+            
+            try {
+              const response = await fetch(`/api/experiencias/${experienciaId}`, {
+                method: 'PUT',
+                body: formData
+              });
+              
+              const data = await response.json();
+              
+              if (response.ok) {
+                alert('¡Experiencia actualizada exitosamente!');
+                window.location.href = '/experiencias';
+              } else {
+                alert(`Error: ${data.error || 'No se pudo actualizar la experiencia'}`);
+              }
+            } catch (error) {
+              alert('Error al actualizar: ' + error.message);
+            }
+          });
+
+          // Handle delete button
+          document.getElementById('deleteBtn').addEventListener('click', async () => {
+            if (!confirm('¿Estás seguro de que quieres eliminar esta experiencia? Esta acción no se puede deshacer.')) {
+              return;
+            }
+
+            try {
+              const response = await fetch(`/api/experiencias/${experienciaId}`, {
+                method: 'DELETE'
+              });
+              
+              const data = await response.json();
+              
+              if (response.ok) {
+                alert('Experiencia eliminada exitosamente');
+                window.location.href = '/experiencias';
+              } else {
+                alert(`Error: ${data.error || 'No se pudo eliminar la experiencia'}`);
+              }
+            } catch (error) {
+              alert('Error al eliminar: ' + error.message);
+            }
+          });
+
+          // Load experience data when page loads
+          window.addEventListener('DOMContentLoaded', cargarExperiencia);
+        </script>
       </section>
     </main>
 

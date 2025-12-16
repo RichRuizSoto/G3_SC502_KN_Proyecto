@@ -25,7 +25,7 @@
           </p>
         </header>
 
-        <form action="/api/experiencias" method="POST" class="publish-form-alt">
+        <form id="publishForm" class="publish-form-alt" enctype="multipart/form-data">
           
           <fieldset class="form-section">
             <legend>Información Básica del Evento</legend>
@@ -83,6 +83,32 @@
             Publicar Experiencia Ahora 🚀
           </button>
         </form>
+
+        <script>
+          document.getElementById('publishForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(document.getElementById('publishForm'));
+            
+            try {
+              const response = await fetch('/api/experiencias', {
+                method: 'POST',
+                body: formData
+              });
+              
+              const data = await response.json();
+              
+              if (response.ok) {
+                alert('¡Experiencia publicada exitosamente!');
+                window.location.href = '/experiencias';
+              } else {
+                alert(`Error: ${data.error || 'No se pudo publicar la experiencia'}`);
+              }
+            } catch (error) {
+              alert('Error al publicar: ' + error.message);
+            }
+          });
+        </script>
       </section>
     </main>
 

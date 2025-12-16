@@ -12,4 +12,5 @@ class Experiencia(db.Model):
     precio_por_persona = db.Column(db.Numeric(10, 2), nullable=False)
     fecha_evento = db.Column(db.DateTime, nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey("usuario.id_usuario"), nullable=False)
+    imagen = db.Column(db.String(255), nullable=True)
     fecha_creacion = db.Column(db.DateTime, server_default=db.func.now())
