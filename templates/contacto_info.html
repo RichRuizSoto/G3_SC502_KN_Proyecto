@@ -1,0 +1,63 @@
+<!-- Sección de Información de Contacto -->
+<section class="contacto-section">
+    <h2>Información de Contacto</h2>
+    
+    {% if contacto %}
+        <div class="contacto-card">
+            <div class="contacto-info">
+                <p><strong>Persona de contacto:</strong> {{ contacto.nombre_contacto }}</p>
+                <p><strong>Teléfono:</strong> <a href="tel:{{ contacto.telefono }}">{{ contacto.telefono }}</a></p>
+                <p><strong>Email:</strong> <a href="mailto:{{ contacto.email }}">{{ contacto.email }}</a></p>
+                
+                {% if contacto.direccion %}
+                    <p><strong>Dirección:</strong> {{ contacto.direccion }}</p>
+                {% endif %}
+                
+                {% if contacto.horario_atencion %}
+                    <p><strong>Horario de atención:</strong> {{ contacto.horario_atencion }}</p>
+                {% endif %}
+                
+                {% if contacto.sitio_web %}
+                    <p><strong>Sitio Web:</strong> <a href="{{ contacto.sitio_web }}" target="_blank">{{ contacto.sitio_web }}</a></p>
+                {% endif %}
+            </div>
+
+            {% if redes_sociales %}
+                <div class="redes-sociales">
+                    <h3>Síguenos en redes</h3>
+                    <div class="redes-links">
+                        {% if redes_sociales.facebook %}
+                            <a href="{{ redes_sociales.facebook }}" target="_blank" class="red-social facebook" title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        {% endif %}
+                        {% if redes_sociales.instagram %}
+                            <a href="{{ redes_sociales.instagram }}" target="_blank" class="red-social instagram" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        {% endif %}
+                        {% if redes_sociales.whatsapp %}
+                            <a href="{{ redes_sociales.whatsapp }}" target="_blank" class="red-social whatsapp" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        {% endif %}
+                        {% if redes_sociales.twitter %}
+                            <a href="{{ redes_sociales.twitter }}" target="_blank" class="red-social twitter" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        {% endif %}
+                        {% if redes_sociales.tiktok %}
+                            <a href="{{ redes_sociales.tiktok }}" target="_blank" class="red-social tiktok" title="TikTok">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="sin-contacto">
+            <p>No hay información de contacto disponible para esta experiencia.</p>
+        </div>
+    {% endif %}
+</section>

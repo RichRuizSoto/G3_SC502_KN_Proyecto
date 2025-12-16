@@ -2,11 +2,13 @@ from flask import render_template
 from routes.auth_routes import auth_bp
 from routes.user_routes import user_bp
 from routes.experiencias_routes import experiencias_bp
+from routes.contacto_routes import contacto_bp
 from flask import session, redirect, url_for
 from models.usuario import Usuario
 from models.experiencia import Experiencia
 from models.reserva import Reserva
 from models.estado_reserva import EstadoReserva
+from models.contacto_experiencia import ContactoExperiencia
 from flask import request
 from flask import session
 from config.database import db
@@ -17,6 +19,7 @@ def register_routes(app):
     app.register_blueprint(auth_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(experiencias_bp)
+    app.register_blueprint(contacto_bp)
 
     @app.route('/header.html')
     def header_partial():
@@ -188,7 +191,41 @@ def register_routes(app):
     @app.route("/experiencias/<int:id_experiencia>")
     def experiencia_detalle(id_experiencia):
         e = Experiencia.query.get_or_404(id_experiencia)
-        return render_template("experiencia_detalle.html", e=e)
+        contacto = ContactoExperiencia.query.filter_by(id_experiencia=id_experiencia).first()
+        
+        # Procesar redes sociales si existen
+        redes_sociales = None
+        if contacto and contacto.redes_sociales:
+            import json
+            try:
+                redes_sociales = json.loads(contacto.redes_sociales)
+            except:
+                redes_sociales = None
+        
+        return render_template("experiencia_detalle.html", e=e, contacto=contacto, redes_sociales=redes_sociales)
+    
+    @app.route("/experiencias/<int:id_experiencia>/contacto/editar")
+    def editar_contacto(id_experiencia):
+        user_id = session.get("user_id")
+        if not user_id:
+            return redirect(url_for("auth.home"))
+        
+        experiencia = Experiencia.query.get_or_404(id_experiencia)
+        
+        if experiencia.id_usuario != user_id:
+            return "No autorizado", 403
+        
+        contacto = ContactoExperiencia.query.filter_by(id_experiencia=id_experiencia).first()
+        
+        # Procesar redes sociales si existen
+        redes_sociales = None
+        if contacto and contacto.redes_sociales:
+            try:
+                redes_sociales = json.loads(contacto.redes_sociales)
+            except:
+                redes_sociales = None
+        
+        return render_template("editar_contacto.html", experiencia=experiencia, contacto=contacto, redes_sociales=redes_sociales)
     
     @app.post("/experiencias/<int:id_experiencia>/eliminar")
     def eliminar_experiencia(id_experiencia):

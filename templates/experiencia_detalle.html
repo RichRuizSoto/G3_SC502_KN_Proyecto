@@ -38,6 +38,70 @@
 
                 </div>
             </div>
+
+            <!-- Sección de Información de Contacto -->
+            <div class="card" style="max-width: 900px; margin: 20px auto;">
+                {% if contacto %}
+                    <div class="card-content">
+                        <h2>Información de Contacto</h2>
+                        
+                        <div class="contacto-info">
+                            <p><strong>Persona de contacto:</strong> {{ contacto.nombre_contacto }}</p>
+                            <p><strong>Teléfono:</strong> <a href="tel:{{ contacto.telefono }}">{{ contacto.telefono }}</a></p>
+                            <p><strong>Email:</strong> <a href="mailto:{{ contacto.email }}">{{ contacto.email }}</a></p>
+                            
+                            {% if contacto.direccion %}
+                                <p><strong>Dirección:</strong> {{ contacto.direccion }}</p>
+                            {% endif %}
+                            
+                            {% if contacto.horario_atencion %}
+                                <p><strong>Horario de atención:</strong> {{ contacto.horario_atencion }}</p>
+                            {% endif %}
+                            
+                            {% if contacto.sitio_web %}
+                                <p><strong>Sitio Web:</strong> <a href="{{ contacto.sitio_web }}" target="_blank">{{ contacto.sitio_web }}</a></p>
+                            {% endif %}
+                        </div>
+
+                        {% if redes_sociales %}
+                            <div class="redes-sociales" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                                <h3>Síguenos en redes</h3>
+                                <div class="redes-links" style="display: flex; gap: 15px; margin-top: 10px;">
+                                    {% if redes_sociales.facebook %}
+                                        <a href="{{ redes_sociales.facebook }}" target="_blank" style="color: #1877f2; font-size: 24px;" title="Facebook">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if redes_sociales.instagram %}
+                                        <a href="{{ redes_sociales.instagram }}" target="_blank" style="color: #e4405f; font-size: 24px;" title="Instagram">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if redes_sociales.whatsapp %}
+                                        <a href="{{ redes_sociales.whatsapp }}" target="_blank" style="color: #25d366; font-size: 24px;" title="WhatsApp">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if redes_sociales.twitter %}
+                                        <a href="{{ redes_sociales.twitter }}" target="_blank" style="color: #1da1f2; font-size: 24px;" title="Twitter">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if redes_sociales.tiktok %}
+                                        <a href="{{ redes_sociales.tiktok }}" target="_blank" style="color: #000; font-size: 24px;" title="TikTok">
+                                            <i class="fab fa-tiktok"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="card-content">
+                        <p style="color: #666; font-style: italic;">No hay información de contacto disponible para esta experiencia.</p>
+                    </div>
+                {% endif %}
+            </div>
         </section>
     </main>
 
