@@ -1,91 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inicio - Turismo Comunitario</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <link rel="stylesheet" href="/static/css/index.css" />
-  </head>
-  <body>
-    <div id="header-placeholder"></div>
-    <script src="/static/js/header.js"></script>
 
-    <main class="home-container">
-      <section class="hero">
-        <h1>Bienvenido a Turismo Comunitario 🌿</h1>
-        <p>Descubre experiencias únicas creadas por comunidades locales.</p>
-      </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio - Turismo Comunitario</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <link rel="stylesheet" href="/static/css/index.css" />
+</head>
 
-      <section class="feed">
-        <h2>Explora nuestras experiencias</h2>
-        <div class="feed-grid">
-          <article class="feed-card">
-            <img
-              src="https://images.unsplash.com/photo-1556742393-d75f468bfcb0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2940"
-              alt="Tour del Café"
-            />
-            <div class="card-info">
-              <h3>Tour del Café</h3>
-              <p>Aprende el proceso artesanal del café en una finca local.</p>
-              <button>Ver más</button>
-            </div>
-          </article>
+<body>
+  <div id="header-placeholder"></div>
+  <script src="/static/js/header.js"></script>
 
-          <article class="feed-card">
-            <img
-              src="https://plus.unsplash.com/premium_photo-1673697239981-389164b7b87f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2344"
-              alt="Sendero Natural"
-            />
-            <div class="card-info">
-              <h3>Sendero Natural</h3>
-              <p>Explora los bosques y aprende sobre flora y fauna nativa.</p>
-              <button>Ver más</button>
-            </div>
-          </article>
+  <main class="home-container">
+    <section class="hero">
+      <h1>Bienvenido a Turismo Comunitario 🌿</h1>
+      <p>Descubre experiencias únicas creadas por comunidades locales.</p>
+    </section>
 
-          <article class="feed-card">
-            <img
-              src="https://images.unsplash.com/photo-1728196474406-3877eee547a8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2942"
-              alt="Artesanía Local"
-            />
-            <div class="card-info">
-              <h3>Artesanía Local</h3>
-              <p>
-                Participa en talleres y crea tu propia artesanía tradicional.
-              </p>
-              <button>Ver más</button>
-            </div>
-          </article>
+    <section class="feed">
+      <h2>Explora nuestras experiencias</h2>
+      <div class="feed-grid">
+        {% if experiencias and experiencias|length > 0 %}
+        {% for e in experiencias %}
+        <article class="feed-card">
+          <img src="https://plus.unsplash.com/premium_photo-1673643405538-de0f82933fcb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2942"
+            alt="{{ e.titulo }}" />
+          <div class="card-info">
+            <h3>{{ e.titulo }}</h3>
+            <p>{{ e.descripcion }}</p>
+            <a class="btn-home" href="/experiencias/{{ e.id_experiencia }}">Ver más</a>
+          </div>
+        </article>
+        {% endfor %}
+        {% else %}
+        <p>No hay experiencias publicadas todavía.</p>
+        {% endif %}
+      </div>
+    </section>
+  </main>
 
-          <article class="feed-card">
-            <img
-              src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?crop=entropy&cs=tinysrgb&fit=max&h=250&w=400"
-              alt="Cultura Local"
-            />
-            <div class="card-info">
-              <h3>Cultura Local</h3>
-              <p>Descubre festividades y tradiciones de la comunidad.</p>
-              <button>Ver más</button>
-            </div>
-          </article>
+  <div id="footer-placeholder"></div>
+  <script src="/static/js/footer.js"></script>
+</body>
 
-          <article class="feed-card">
-            <img
-              src="https://media.istockphoto.com/id/2187747241/photo/hand-of-a-woman-holding-a-chicharr%C3%B3n-de-cerdo-frito-and-pururuca-crunchy-typical-spanish-food.webp?a=1&b=1&s=612x612&w=0&k=20&c=bCjdPebaTRq7UYpZxGrVrbkC2zX4Qb_IUQkf2FjSJB4="
-              alt="Gastronomía"
-            />
-            <div class="card-info">
-              <h3>Gastronomía Local</h3>
-              <p>Prueba recetas auténticas hechas por chefs locales.</p>
-              <button>Ver más</button>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <div id="footer-placeholder"></div>
-    <script src="/static/js/footer.js"></script>
-  </body>
 </html>

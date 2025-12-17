@@ -26,9 +26,7 @@
           </p>
         </header>
 
-        <form action="/api/experiencias/update" method="POST" class="publish-form">
-          <!-- Hidden field to identify the experience being edited -->
-          <input type="hidden" id="experience_id" name="id" value="exp-12345" />
+        <form action="/experiencias/{{ e.id_experiencia }}/editar" method="POST" class="publish-form">
 
           <!-- FIELDSET 1: INFORMACIÓN ESENCIAL -->
           <fieldset class="form-section">
@@ -37,19 +35,20 @@
             <!-- TÍTULO -->
             <div class="form-group">
               <label for="titulo">Título de la Experiencia</label>
-              <input type="text" id="titulo" name="titulo" required placeholder="Ej: Tour del Café Artesanal y Degustación"/>
+              <input type="text" id="titulo" name="titulo" required value="{{ e.titulo }}"/>
             </div>
 
             <!-- UBICACIÓN -->
             <div class="form-group">
               <label for="ubicacion">Ubicación (Dirección o Punto de Encuentro)</label>
-              <input type="text" id="ubicacion" name="ubicacion" required placeholder="Ej: Finca Las Cumbres, San José"/>
+              <input type="text" id="ubicacion" name="ubicacion" required value="{{ e.ubicacion }}"/>
+
             </div>
 
             <!-- DESCRIPCIÓN -->
             <div class="form-group full-width">
               <label for="descripcion">Descripción Detallada</label>
-              <textarea id="descripcion" name="descripcion" rows="6" required placeholder="Describe en detalle qué incluye la experiencia y qué la hace especial."></textarea>
+              <textarea id="descripcion" name="descripcion" rows="6" required>{{ e.descripcion }}</textarea>
             </div>
             
             <!-- IMAGEN (We add a note here since files cannot be pre-filled) -->
@@ -72,25 +71,26 @@
               <!-- DURACIÓN -->
               <div class="form-group">
                 <label for="duracion">Duración Estimada (Horas)</label>
-                <input type="number" id="duracion" name="duracion" min="0.5" step="0.5" required placeholder="3.5"/>
+                <input type="number" id="duracion" name="duracion" min="0.5" step="0.5" required value="{{ e.duracion_horas }}"/>
               </div>
 
               <!-- CAPACIDAD -->
               <div class="form-group">
                 <label for="capacidad">Capacidad Máxima</label>
-                <input type="number" id="capacidad" name="capacidad" min="1" required placeholder="15"/>
+                <input type="number" id="capacidad" name="capacidad" min="1" required value="{{ e.capacidad_maxima }}"/>
               </div>
 
               <!-- PRECIO -->
               <div class="form-group">
                 <label for="precio">Precio por Persona (USD)</label>
-                <input type="number" id="precio" name="precio" min="0" step="0.01" required placeholder="25.00"/>
+                <input type="number" id="precio" name="precio" min="0" step="0.01" required value="{{ e.precio_por_persona }}"/>
               </div>
 
               <!-- FECHA DEL EVENTO -->
               <div class="form-group">
                 <label for="fecha_evento">Fecha y Hora</label>
-                <input type="datetime-local" id="fecha_evento" name="fecha_evento" required />
+                <input type="datetime-local" id="fecha_evento" name="fecha_evento" required
+                value="{{ e.fecha_evento.strftime('%Y-%m-%dT%H:%M') if e.fecha_evento else '' }}"/>
               </div>
             </div>
           </fieldset>
@@ -104,37 +104,6 @@
 
     <div id="footer-placeholder"></div>
     <script src="/static/js/footer.js"></script>
-
-    <script>
-      /**
-       * SIMULATES LOADING EXISTING EXPERIENCE DATA AND POPULATING THE FORM.
-       * In a real application, this data would be fetched from a server (e.g., Firestore)
-       * using the experience_id from the URL.
-       */
-      window.onload = function() {
-        // --- Sample Data (Simulated Fetch Result) ---
-        const experienceData = {
-          titulo: "Edición: Tour Histórico del Cacao",
-          ubicacion: "Finca El Paraíso, Limón",
-          descripcion: "Una caminata guiada por el proceso del cacao, incluye degustación. Este tour ha sido actualizado para incluir un taller de triturado de semillas.",
-          duracion: 4.0,
-          capacidad: 12,
-          precio: 35.00,
-          // Note: datetime-local requires YYYY-MM-DDTHH:MM format
-          fecha_evento: "2025-12-15T10:00" 
-        };
-
-        // --- Populate Form Fields ---
-        document.getElementById('titulo').value = experienceData.titulo;
-        document.getElementById('ubicacion').value = experienceData.ubicacion;
-        document.getElementById('descripcion').value = experienceData.descripcion;
-        document.getElementById('duracion').value = experienceData.duracion;
-        document.getElementById('capacidad').value = experienceData.capacidad;
-        document.getElementById('precio').value = experienceData.precio;
-        document.getElementById('fecha_evento').value = experienceData.fecha_evento;
-        
-        console.log("Form fields pre-populated for editing.");
-      };
-    </script>
+    
   </body>
 </html>

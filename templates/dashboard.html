@@ -16,10 +16,10 @@
         <h2>Panel Comunidad</h2>
         <nav>
           <ul>
-            <li><a href="#">Mis Experiencias</a></li>
-            <li><a href="#">Crear Experiencia</a></li>
-            <li><a href="#">Reservas</a></li>
-            <li><a href="#">Configuración</a></li>
+            <li><a href="/dashboard/mis-experiencias">Mis Experiencias</a></li>
+            <li><a href="/publicar">Crear Experiencia</a></li>
+            <li><a href="/dashboard/mis-reservas">Reservas</a></li>
+            <li><a href="/dashboard">Configuración</a></li>
           </ul>
         </nav>
       </aside>
@@ -33,17 +33,57 @@
         <div class="cards">
           <div class="card">
             <h3>Total Experiencias</h3>
-            <p>12</p>
+            <p>{{ total_experiencias }}</p>
           </div>
           <div class="card">
             <h3>Reservas Pendientes</h3>
-            <p>5</p>
+            <p>{{ reservas_pendientes }}</p>
           </div>
           <div class="card">
             <h3>Comunidad Activa</h3>
-            <p>23 miembros</p>
+            <p>{{ comunidad_activa }} miembros</p>
           </div>
         </div>
+        
+        <section style="margin-top: 30px;">
+          <h2 style="color:#007a5c;">Reservas pendientes</h2>
+          
+          {% if lista_reservas_pendientes and lista_reservas_pendientes|length > 0 %}
+          <table style="width:100%; border-collapse: collapse; background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+            <thead style="background:#e0f7f1;">
+              <tr>
+                <th style="padding:12px; text-align:left;">Experiencia</th>
+                <th style="padding:12px; text-align:left;">Usuario</th>
+                <th style="padding:12px; text-align:left;">Personas</th>
+                <th style="padding:12px; text-align:left;">Fecha</th>
+                <th style="padding:12px; text-align:left;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r, e, u in lista_reservas_pendientes %}
+              <tr style="border-top:1px solid #eee;">
+                <td style="padding:12px;">{{ e.titulo }}</td>
+                <td style="padding:12px;">{{ u.nombre }} ({{ u.correo }})</td>
+                <td style="padding:12px;">{{ r.cantidad_personas }}</td>
+                <td style="padding:12px;">{{ r.fecha_reserva }}</td>
+                <td style="padding:12px; display:flex; gap:10px;">
+                  <form method="POST" action="/reservas/{{ r.id_reserva }}/confirmar">
+                    <button type="submit" class="btn-card" style="padding:6px 12px;">Confirmar</button>
+                  </form>
+                  
+                  <form method="POST" action="/reservas/{{ r.id_reserva }}/cancelar">
+                    <button type="submit" class="btn-card" style="padding:6px 12px; background:#b00020;">Cancelar</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p>No tienes reservas pendientes.</p>
+          {% endif %}
+        </section>
+
       </section>
     </main>
 

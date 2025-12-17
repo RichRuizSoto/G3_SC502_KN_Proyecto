@@ -91,17 +91,21 @@ h3 {
   flex: 1;
 }
 
-.card-info button {
-  background: #4caf50;
+.card-info .btn-home {
+  align-self: flex-start;
+  background: #007a5c;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
 }
 
-.card-info button:hover {
+.card-info .btn-home:hover {
   background: #45a049;
   transform: translateY(-2px);
 }
